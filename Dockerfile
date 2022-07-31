@@ -11,5 +11,5 @@ FROM python:3.9-slim-buster
 COPY --from=compile-image /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 WORKDIR /usr/src/bot/
-COPY ./ /usr/src/bot/
+COPY bot/ /usr/src/bot/
 ENTRYPOINT ["python", "-m", "__main__.py"]

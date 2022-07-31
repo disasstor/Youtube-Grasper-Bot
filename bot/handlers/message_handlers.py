@@ -10,9 +10,9 @@ async def help_cmd(message: types.Message):
     await message.delete()
     await check_user(message)
     await message.answer(
-        f"Hello { message.from_user.full_name }\n"
-        f"<b>I'm a media Bot</b>\n"
-        f"To download the audio, send the bot a link to the YouTube video."
+        f"Hello { message.from_user.full_name } I'm Youtube Grasper Bot!\n"
+        f"You can use me to grab videos from Youtube.\n"
+        f"Send me a link to a video and I'll send you a link to download it."
     )
 
 
