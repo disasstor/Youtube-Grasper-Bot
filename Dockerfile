@@ -10,6 +10,6 @@ RUN pip install --no-cache-dir --upgrade pip \
 FROM python:3.9-slim-buster
 COPY --from=compile-image /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
-WORKDIR /usr/src/bot/
-COPY bot/ /usr/src/bot/
-ENTRYPOINT ["python", "-m", "__main__.py"]
+WORKDIR /usr/src/app/
+COPY ./ /usr/src/app/
+ENTRYPOINT ["python", "-m", "bot"]
