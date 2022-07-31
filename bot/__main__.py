@@ -1,13 +1,9 @@
 import asyncio
-import asyncpg
 import logging
 
 from aiogram import Bot, Dispatcher
 from aiogram.types import BotCommand
 from aiogram.types.bot_command_scope import BotCommandScopeDefault
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.testing.config import db_url
 
 from bot.config_reader import Config, read_config
 from bot.db.base import Base, async_db_session
