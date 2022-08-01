@@ -19,7 +19,9 @@ async def help_cmd(message: types.Message):
 
 
 async def input_url(message: types.Message):
+    print(message.text)
     id_data = get_id(message.text)
+    print(id_data)
     if id_data is None:
         await message.reply('<i>🗿 Invalid URL, try again.</i>')
         return

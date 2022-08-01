@@ -1,14 +1,15 @@
 import re
 regex_youtube = r'(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?'
 regex_video_id = r'^.*(youtu.be\/|watch\?v=|embed/|v/|.+\?v=)?(?P<id>[A-Za-z0-9\-=_]{11})'
-regex_playlist_id = r'^.*(youtu.be\/|list=)(?P<id>[^#\&\?]*).*'
-
+regex_playlist_id = r'^.*(youtu.be\/|list=)(?P<id>[^#\&\?]{34})'
+#regex_video_id = r'^.*(youtu.be\/|watch\?v=|embed/|v/|.+\?v=)?(?P<id>[A-Za-z0-9\-=_]{11})'
+#regex_playlist_id = r'^.*(youtu.be\/|list=)(?P<id>[^#\&\?]*).*'
 
 def get_id(url):
-    if re.match(regex_video_id, url):
-        return get_video_id(url)
-    elif re.match(regex_playlist_id, url):
+    if re.match(regex_playlist_id, url):
         return get_playlist_id(url)
+    elif re.match(regex_video_id, url):
+        return get_video_id(url)
     else:
         return None
 
