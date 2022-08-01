@@ -43,7 +43,9 @@ async def call_download(callback_query: types.CallbackQuery):
             await update_dl_count(file.file_id, file.dl_count)
             await update_user_dl_count(callback_query.from_user.id)
         else:
-            result_dl = downloader(id, url_type, itag)
+            print(id, url_type, itag)
+            result_dl = downloader(id, 'video', itag)
+            print(result_dl)
             while result_dl:
                 break
             file = await send_file(callback_query, content_type, title, author, thumbnail, open(filename, 'rb'))
