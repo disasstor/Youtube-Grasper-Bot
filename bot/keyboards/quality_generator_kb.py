@@ -2,7 +2,6 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def quality_generator_kb(video_data, url_type, id, content_type):
-    # Генерация клавиатуры
     buttons = []
     if url_type == 'video':
         quality = video_data['quality']

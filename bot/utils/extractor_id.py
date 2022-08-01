@@ -1,7 +1,7 @@
 import re
-regex_youtube = '(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?'
-regex_video_id = '(watch\?v=|embed/|v/|.+\?v=)?(?P<id>[A-Za-z0-9\-=_]{11})'
-regex_playlist_id = '^.*(youtu.be\/|list=)(?P<id>[^#\&\?]*).*'
+regex_youtube = r'(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?'
+regex_video_id = r'^.*(youtu.be\/|watch\?v=|embed/|v/|.+\?v=)?(?P<id>[A-Za-z0-9\-=_]{11})'
+regex_playlist_id = r'^.*(youtu.be\/|list=)(?P<id>[^#\&\?]*).*'
 
 
 def get_id(url):

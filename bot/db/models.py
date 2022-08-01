@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, String, Boolean, DateTime, Integer
+from sqlalchemy import Column, BigInteger, String, Boolean, DateTime
 from sqlalchemy.future import select
 from sqlalchemy import update as sqlalchemy_update
 from bot.db.base import Base, async_db_session
@@ -6,15 +6,15 @@ from bot.db.base import Base, async_db_session
 
 class User(Base):
     __tablename__ = "users"
-    id = Column(BigInteger, primary_key=True)           # Telegram ID
-    lang = Column(String(2), default="en")              # Language code
-    username = Column(String(50), default='None')       # Telegram username
-    first_name = Column(String(50), default='None')     # Telegram first name
-    last_name = Column(String(50), default='None')      # Telegram last name
-    dl_count = Column(BigInteger, default=0)            # Download count
-    banned = Column(Boolean, default=False)             # Is user banned
-    banned_reason = Column(String(200))                 # Reason for ban
-    premium_date = Column(DateTime)                     # Date of premium
+    id = Column(BigInteger, primary_key=True)  # Telegram ID
+    lang = Column(String(2), default="en")  # Language code
+    username = Column(String(50), default='None')  # Telegram username
+    first_name = Column(String(50), default='None')  # Telegram first name
+    last_name = Column(String(50), default='None')  # Telegram last name
+    dl_count = Column(BigInteger, default=0)  # Download count
+    banned = Column(Boolean, default=False)  # Is user banned
+    banned_reason = Column(String(200))  # Reason for ban
+    premium_date = Column(DateTime)  # Date of premium
 
     @classmethod
     async def create(cls, user):
@@ -22,8 +22,8 @@ class User(Base):
         await async_db_session.commit()
 
     @classmethod
-    async def get(cls, id):
-        query = select(cls).where(cls.id == id)
+    async def get(cls, id_user):
+        query = select(cls).where(cls.id == id_user)
         results = await async_db_session.execute(query)
         (result,) = results.one()
         return result
@@ -113,14 +113,14 @@ class User(Base):
 
 class File(Base):
     __tablename__ = 'files'
-    file_unique_id = Column(String(100), primary_key=True)      # Telegram file unique id
-    file_id = Column(String(100))                               # Telegram file id
-    title = Column(String(200))                                 # Title of file
-    author = Column(String(100))                                # Author of file
-    thumb = Column(String(100))                                 # Thumbnail of file
-    quality = Column(String(10))                                   # Quality of file
-    youtube_id = Column(String(20))                             # YouTube id of file
-    dl_count = Column(BigInteger, default=1)                    # Download count
+    file_unique_id = Column(String(100), primary_key=True)  # Telegram file unique id
+    file_id = Column(String(100))  # Telegram file id
+    title = Column(String(200))  # Title of file
+    author = Column(String(100))  # Author of file
+    thumb = Column(String(100))  # Thumbnail of file
+    quality = Column(String(10))  # Quality of file
+    youtube_id = Column(String(20))  # YouTube id of file
+    dl_count = Column(BigInteger, default=1)  # Download count
 
     @classmethod
     async def create(cls, file):
@@ -135,11 +135,24 @@ class File(Base):
         return result
 
     @classmethod
+    async def get_by_id(cls, file_id):
+        query = select(cls).where(cls.file_id == file_id)
+        results = await async_db_session.execute(query)
+        (result,) = results.one()
+        return result
+
+    @classmethod
     async def get_by_yt_id_and_quality(cls, youtube_id, quality):
         query = select(cls).where(cls.youtube_id == youtube_id).where(cls.quality == quality)
         results = await async_db_session.execute(query)
         (result,) = results.one()
         return result
+
+    @classmethod
+    async def get_top_5(cls):
+        query = select(cls).order_by(cls.dl_count.desc()).limit(5)
+        results = await async_db_session.execute(query)
+        return results.fetchall()
 
     @classmethod
     async def update(cls, file_unique_id, file_id, title, author, thumb, quality, youtube_id):

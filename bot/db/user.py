@@ -16,7 +16,7 @@ async def check_user(message):
     return user
 
 
-async def create_user(id_user, username, first_name, last_name, lang) -> User:
+async def create_user(id_user, username, first_name, last_name, lang):
     user = User(id=id_user, username=username, first_name=first_name, last_name=last_name, lang=lang)
     await User.create(user)
 
@@ -25,9 +25,9 @@ async def update_user(id_user, username, first_name, last_name):
     await User.update(id_user, username, first_name, last_name)
 
 
-async def get_user_by_id(id):
+async def get_user_by_id(id_user):
     try:
-        user = await User.get(id)
+        user = await User.get(id_user)
         return user
     except NoResultFound:
         return None
@@ -69,3 +69,5 @@ async def del_ban(id_user):
 async def update_user_dl_count(id_user):
     user = await get_user_by_id(id_user)
     await User.update_dl_count(id_user, user.dl_count + 1)
+
+########################################################################################################################

@@ -1,6 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-
 from bot.config_reader import Config, read_config
 
 Base = declarative_base()

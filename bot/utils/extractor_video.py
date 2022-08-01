@@ -1,6 +1,7 @@
 from pytube import YouTube, Playlist
-
 from bot.utils.extractor_id import get_video_id
+
+regex_num_only = r'^[0-9]*$'
 
 
 def get_video(id, content_type, url_type):
