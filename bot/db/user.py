@@ -8,10 +8,14 @@ async def check_user(message):
     first_name = message.from_user.first_name
     last_name = message.from_user.last_name
     lang = message.from_user.language_code
+
     user = await get_user_by_id(id_user)
+
     if user is None:
+        # Create new user
         await create_user(id_user, username, first_name, last_name, lang)
     if user is not None and user.username != username or user.first_name != first_name or user.last_name != last_name:
+        # Update data user
         await update_user(id_user, username, first_name, last_name)
     return user
 
