@@ -4,6 +4,7 @@ from bot.db.file import get_top_5
 from bot.db.user import check_user
 from bot.keyboards.content_types_kb import content_types_kb
 from bot.keyboards.top_download_kb import top_download_kb
+from bot.templates.message import top_cmd_icons
 from bot.utils.extractor_id import get_id, regex_youtube
 from bot.utils.extractor_thumb import get_thumb
 from bot.utils.extractor_title import get_title
@@ -34,13 +35,7 @@ async def input_url(message: types.Message):
 
 async def get_top_videos(message: types.Message):
     top = await get_top_5()
-    icon = {1: '🥇', 2: '🥈', 3: '🥉', 4: '🎖️', 5: '🎗️'}
-    index = 1
-    text_msg = '🏆 Top 5 downloads:\n\n'
-    for item in top:
-        item = item[0]
-        text_msg += f'{icon.get(index)} {index}. {item.title} {item.quality} | Downloaded {item.dl_count} times 🚀\n\n'
-        index += 1
+    text_msg = '🏆 Top 5 downloads:\n\n' + '\n\n'.join([f'{top_cmd_icons.get(index)} {index}. {item.title} {item.quality} | Downloaded {item.dl_count} times 🚀' for index, item in enumerate(top, start=1)])
     await message.answer(text=text_msg, reply_markup=top_download_kb(top))
 
 

@@ -13,20 +13,12 @@ def get_data(id, itag, url_type):
 def get_video_data(id, itag):
     url = f'https://www.youtube.com/watch?v={id}'
     youtube = YouTube(url)
-    data = youtube.streams.get_by_itag(itag)
-    title = data.title
-    author = youtube.author
-    thumbnail = youtube.thumbnail_url
-    filename = data.default_filename
-    video_data = [title, author, thumbnail, filename, id]
-    return video_data
+    stream_data = youtube.streams.get_by_itag(itag)
+    return [stream_data.title, youtube.author, youtube.thumbnail_url, stream_data.default_filename, id]
 
 
 def get_playlist_data(id, itag):
     url = f'https://www.youtube.com/playlist?list={id}'
     urls = Playlist(url).video_urls
-    playlist_data = []
-    for url in urls:
-        playlist_data.append(get_video_data(get_video_id(url)['id'], itag))
-    return playlist_data
+    return [get_video_data(get_video_id(url)['id'], itag) for url in urls]
 

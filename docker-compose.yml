@@ -1,7 +1,9 @@
 version: '3.9'
 services:
     bot:
-        image: youtube_grasper_bot:v1.0.0
+        build: .
+        image: youtube_grasper_bot:latest
+        container_name: youtube_grasper_bot
         restart: always
         stop_signal: SIGINT
         environment:

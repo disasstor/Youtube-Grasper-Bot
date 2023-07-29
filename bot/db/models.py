@@ -115,9 +115,9 @@ class File(Base):
     __tablename__ = 'files'
     file_unique_id = Column(String(100), primary_key=True)  # Telegram file unique id
     file_id = Column(String(100))  # Telegram file id
-    title = Column(String(200))  # Title of file
+    title = Column(String(255))  # Title of file
     author = Column(String(100))  # Author of file
-    thumb = Column(String(100))  # Thumbnail of file
+    thumb = Column(String(255))  # Thumbnail of file
     quality = Column(String(10))  # Quality of file
     youtube_id = Column(String(20))  # YouTube id of file
     dl_count = Column(BigInteger, default=1)  # Download count
@@ -150,7 +150,7 @@ class File(Base):
 
     @classmethod
     async def get_top_5(cls):
-        query = select(cls).order_by(cls.dl_count.desc()).limit(5)
+        query = select(cls.title, cls.quality, cls.dl_count, cls.file_unique_id).order_by(cls.dl_count.desc()).limit(5)
         results = await async_db_session.execute(query)
         return results.fetchall()
 

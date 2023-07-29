@@ -67,7 +67,8 @@ async def del_ban(id_user):
 ########################################################################################################################
 
 async def update_user_dl_count(id_user):
-    user = await get_user_by_id(id_user)
-    await User.update_dl_count(id_user, user.dl_count + 1)
+    # user = await get_user_by_id(id_user)
+    # dl_count = 1 if None else user.dl_count + 1
+    await User.update_dl_count(id_user, +1)
 
 ########################################################################################################################

@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from os import getenv
-
+from dotenv import load_dotenv
 from aiogram.bot.api import TelegramAPIServer
 
+load_dotenv()
 
 @dataclass
 class Bot:
